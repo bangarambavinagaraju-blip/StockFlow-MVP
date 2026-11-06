@@ -3,8 +3,8 @@ import axios from "axios";
 const api = axios.create({
   baseURL: "https://stockflow-mvp-8ddy.onrender.com/api",
   headers: {
-    "Content-Type": "application/json"
-  }
+    "Content-Type": "application/json",
+  },
 });
 
 api.interceptors.request.use(
