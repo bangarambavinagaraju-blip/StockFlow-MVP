@@ -35,11 +35,22 @@ const authMiddleware = (req, res, next) => {
         );
 
         // Attach authenticated user information
-        req.user = {
-            userId: decoded.userId,
-            organizationId: decoded.organizationId
-        };
+       if (
+    !Number.isInteger(decoded.userId) ||
+    decoded.userId <= 0 ||
+    !Number.isInteger(decoded.organizationId) ||
+    decoded.organizationId <= 0
+) {
+    return res.status(401).json({
+        success: false,
+        message: "Invalid authentication token."
+    });
+}
 
+req.user = {
+    userId: decoded.userId,
+    organizationId: decoded.organizationId
+};
         // Continue to protected route
         next();
 
